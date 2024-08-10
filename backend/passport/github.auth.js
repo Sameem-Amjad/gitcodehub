@@ -6,11 +6,11 @@ import User from "../models/user.model.js";
 dotenv.config();
 
 passport.serializeUser(function (user, done) {
-	done(null, user);
+  done(null, user);
 });
 
 passport.deserializeUser(function (obj, done) {
-	done(null, obj);
+  done(null, obj);
 });
 
 // Use the GitHubStrategy within Passport.
@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/api/auth/github/callback",
+      callbackURL: `${process.env.CLIENT_BASE_URL}/api/auth/github/callback`,
     },
     async function (accessToken, refreshToken, profile, done) {
       const user = await User.findOne({ username: profile.username });
